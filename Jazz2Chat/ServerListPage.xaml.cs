@@ -23,8 +23,13 @@ public partial class ServerListPage : ContentPage
         GameServerList = ListClient.ParseASCIIList(ListClient.DownloadASCIIList());
 		for(int i = 0; i < GameServerList.Count; i++)
 		{
-            VM.Text = GameServerList[i].Name.Replace("|", string.Empty);
-            VM.Add();
+            //VM.Text = GameServerList[i].Name.Replace("|", string.Empty);
+            VM.Add(GameServerList[i].Name.Replace("|", string.Empty));
         }
+    }
+
+    private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+    {
+
     }
 }

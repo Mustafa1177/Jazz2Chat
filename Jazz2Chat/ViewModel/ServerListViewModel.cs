@@ -26,6 +26,13 @@ namespace Jazz2Chat.ViewModel
             Text = string.Empty;
         }
 
+        public void Add(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return;
+            Items.Add(value);
+        }
+
         [RelayCommand]
         void Delete(string value)
         {
