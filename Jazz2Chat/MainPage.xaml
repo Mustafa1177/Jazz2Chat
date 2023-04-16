@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Title="Home1"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Jazz2Chat.MainPage"
+             xmlns:viewmodel="clr-namespace:Jazz2Chat.ViewModel"
+             x:DataType="viewmodel:MainViewModel" >
+
+
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Settings"     
+                           Order="Primary"
+                           Priority="0" />
+        
+        
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="Media"  Priority="0">
+            <MenuFlyoutItem Text="Play">
+                <MenuFlyoutItem.IconImageSource>
+                    <FontImageSource Glyph="&#x25B6;"
+                                 FontFamily="Arial" />
+                </MenuFlyoutItem.IconImageSource>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Text="Server List"  Clicked="MenuFlyoutItem_ServerList_Clicked"
+                      >
+                <MenuFlyoutItem.IconImageSource>
+                    <FontImageSource Glyph="&#x23F8;"
+                                 FontFamily="Arial" />
+                </MenuFlyoutItem.IconImageSource>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Text="Disconnect"
+                        >
+                <MenuFlyoutItem.IconImageSource>
+                    <FontImageSource Glyph="&#x23F9;"
+                                 FontFamily="Arial" />
+                </MenuFlyoutItem.IconImageSource>
+            </MenuFlyoutItem>
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
+    
+
+
+    <Grid RowDefinitions="100, Auto, *"
+          ColumnDefinitions=".75*, .25*"
+          Padding="16"
+          RowSpacing="12"
+          ColumnSpacing="12">
+
+        <VerticalStackLayout>
+            
+            <Button Text="Servers"
+                Command="{Binding TapCommand}"/>
+            <Rectangle/>
+        </VerticalStackLayout>
+        
+        <Image Grid.ColumnSpan="2"
+               Source="dotnet_bot.png"></Image>
+
+        <Entry Placeholder="Message"
+               Grid.Row="1"
+               Text="{Binding Text}"/>
+        <Button Text="Send"
+                Command="{Binding AddCommand}"
+                Grid.Row="1"
+                Grid.Column="1"/>
+
+        <CollectionView  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                         ItemsSource="{Binding Items}"
+                         SelectionMode="None">
+            
+            <!-- <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Message 1 x:String>
+                    <x:String>Message 2</x:String>
+                    <x:String>Message 3</x:String>
+                </x:Array>
+            </CollectionView.ItemsSource>-->
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type x:String}">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                
+                            <SwipeItem Text="Delete" 
+                                       BackgroundColor="Red"
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteCommand}"
+                                       CommandParameter="{Binding .}"
+                                />
+                            <!--The above line means: dont use the source, use a relative source, and its an ancestor of type view model, walk up and look for view model and call the cmd "DeleteCommand"-->
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Grid Padding="0,5">
+                            <Frame>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=TapCommand}"
+                                       CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <Label Text="{Binding .}"
+                                   FontSize="Body"/>
+                            </Frame>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

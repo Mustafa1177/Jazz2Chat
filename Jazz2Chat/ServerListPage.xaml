@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Jazz2Chat.ServerListPage"
+               xmlns:viewmodel="clr-namespace:Jazz2Chat.ViewModel"
+             x:DataType="viewmodel:ServerListViewModel" 
+             Title="ServerListPage">
+ 
+      
+
+    <Grid RowDefinitions="100, Auto, *"
+          ColumnDefinitions=".75*, .25*"
+          Padding="16"
+          RowSpacing="12"
+          ColumnSpacing="12">
+
+        <Label 
+            Text="Servers"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <CollectionView  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                         ItemsSource="{Binding Items}"
+                         SelectionMode="None">
+
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type x:String}">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+
+                                <SwipeItem Text="Delete" 
+                                       BackgroundColor="Red"
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=DeleteCommand}"
+                                       CommandParameter="{Binding .}"
+                                />
+                                <!--The above line means: dont use the source, use a relative source, and its an ancestor of type view model, walk up and look for view model and call the cmd "DeleteCommand"-->
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Grid Padding="0,5">
+                            <Frame>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=TapCommand}"
+                                       CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <Label Text="{Binding .}"
+                                   FontSize="Body"/>
+                            </Frame>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>
