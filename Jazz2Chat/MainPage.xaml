@@ -43,7 +43,7 @@
     
 
 
-    <Grid RowDefinitions="100, Auto, *"
+    <Grid RowDefinitions="100, Auto, *, Auto"
           ColumnDefinitions=".75*, .25*"
           Padding="16"
           RowSpacing="12"
@@ -59,12 +59,15 @@
         <Image Grid.ColumnSpan="2"
                Source="dotnet_bot.png"></Image>
 
+        <Label x:Name="LabelPlayerList" Grid.ColumnSpan="2" Grid.Row="1" Padding="2, 6" BindingContext="{Binding PlayerListLabel}"  Text="Player List"/>
+        <Line />
         <Entry Placeholder="Message"
-               Grid.Row="1"
-               Text="{Binding Text}"/>
+               Grid.Row="3"
+               Text="{Binding Text}"
+                ReturnCommand="{Binding SendCommand}"/>
         <Button Text="Send"
-                Command="{Binding AddCommand}"
-                Grid.Row="1"
+                Command="{Binding SendCommand}"
+                Grid.Row="3"
                 Grid.Column="1"/>
 
         <CollectionView  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"

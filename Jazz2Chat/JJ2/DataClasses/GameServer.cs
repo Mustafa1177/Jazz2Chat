@@ -6,6 +6,7 @@ namespace Jazz2Chat.JJ2.DataClasses
 {
     public class GameServer
     {
+        public string Name { get; set; }
         public string IP { get; set; }
         public int Port { get; set; }
         public ServerLocation Location { get; set; }
@@ -16,7 +17,7 @@ namespace Jazz2Chat.JJ2.DataClasses
         public DateTime CreateTime { get; set; } = DateTime.Now;
         public byte PlayerCount { get; set; }
         public byte PlayerLimit { get; set; }
-        public string Name { get; set; } 
+       
 
         public GameServer()
         {

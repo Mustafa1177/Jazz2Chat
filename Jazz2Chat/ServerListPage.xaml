@@ -19,13 +19,20 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
+
+
+
+
+
+
+
         <CollectionView  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                          ItemsSource="{Binding Items}"
-                         SelectionMode="None">
-
-
+                         SelectionMode="None"
+                         EmptyView="No servers available"
+                        >
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type x:String}">
+                <DataTemplate >
                     <SwipeView>
                         <SwipeView.RightItems>
                             <SwipeItems>

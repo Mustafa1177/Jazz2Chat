@@ -12,9 +12,13 @@ namespace Jazz2Chat.ViewModel
         [ObservableProperty]
         string text;
 
+        [ObservableProperty]
+        string playerListLabel = string.Empty;
+
         public MainViewModel()
         {
             items = new ObservableCollection<string>();
+            //JJ2Main.Init();
         }
 
         [RelayCommand]
@@ -40,7 +44,34 @@ namespace Jazz2Chat.ViewModel
         {
             await Shell.Current.GoToAsync("ServerListPage");
         }
+
+        [RelayCommand]
+        void Send(string value)
+        {
+            if (string.IsNullOrEmpty(Text))
+                return;
+            if(JJ2Main.Client.Connected)
+            {
+                JJ2Main.Client.SendMessage(Text);
+                AddMessage(string.Format("{0}: {1}", JJ2Main.Client.CurrentName, Text));
+            }
+            else
+            {
+                AddMessage("You are not connected");
+            }
+            playerListLabel = "dsdsfds";
+            Text = string.Empty;
+        }
+
+        public void AddMessage(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return;
+            Items.Add(value);
+        }
     }
+
+ 
 
 
 

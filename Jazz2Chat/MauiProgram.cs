@@ -16,8 +16,8 @@ public static class MauiProgram
 		//register with dependency service
 		builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<Jazz2Chat.ViewModel.MainViewModel>();
-        builder.Services.AddTransient<ServerListPage>(); // AddTransient is used to create new page everytime we navigate? (temp page)
-        builder.Services.AddTransient<Jazz2Chat.ViewModel.ServerListViewModel>();
+        builder.Services.AddSingleton<ServerListPage>(); //  builder.Services.AddTransient is used to create new page everytime we navigate? (temp page)
+        builder.Services.AddSingleton<Jazz2Chat.ViewModel.ServerListViewModel>();
 
         return builder.Build();
 	}
